@@ -7,9 +7,10 @@ import styles from './Home.module.css';
 const Home = () => {
   const navigate = useNavigate();
 
-  const handleCreateProject = () => alert('Redirigiendo a Crear Proyecto...');
+  
+  const handleProjectNavigation = () => navigate('/projects');
   const handleUserNavigation = () => navigate('/users');
-  const handleThirdOption = () => alert('Opción aún no definida.');
+  const handleTestNavigate = () => navigate('/Test');
   const handleLogout = () => alert('Cerrando sesión...');
 
   return (
@@ -23,10 +24,11 @@ const Home = () => {
       <div className={styles.container}>
         <div className={styles.grid}>
           <OptionCard 
-            title="Gestiona Proyecto" 
+            
+            title="Gestión de Proyectos" 
             icon="FaFolderPlus" 
             colorClass="cardGreen" 
-            onClick={handleCreateProject} 
+            onClick={handleProjectNavigation} // Llama a la función para ir a proyectos
           />
           <OptionCard 
             title="Usuario" 
@@ -38,7 +40,7 @@ const Home = () => {
             title="Pruebas" 
             icon="FaQuestionCircle" 
             colorClass="cardOrange" 
-            onClick={handleThirdOption} 
+            onClick={handleTestNavigate} 
           />
         </div>
       </div>

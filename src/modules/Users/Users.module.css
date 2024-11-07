@@ -26,6 +26,17 @@
   color: #d3d3d3;
 }
 
+/* Nuevo estilo para el botón del menú en el encabezado */
+.menuButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+}
+
 .container {
   padding-top: 70px; /* Espacio para el encabezado */
   max-width: 800px;
@@ -41,17 +52,29 @@
   margin-bottom: 20px;
 }
 
+/* Estilos para el formulario en el modal */
 .form {
   display: flex;
-  gap: 10px;
+  flex-direction: column; /* Coloca los elementos en columna para que estén en líneas individuales */
+  gap: 15px; /* Espaciado entre los elementos */
   margin-bottom: 20px;
+  width: 100%;
 }
 
-.form input {
-  flex: 1;
+.form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.form input,
+.form select {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  width: 100%; /* Asegura que cada campo ocupe el ancho completo del formulario */
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
 }
 
 .form button {
@@ -119,4 +142,122 @@
 
 .deleteButton:hover {
   background-color: #e53935;
+}
+
+/* Estilos para la barra lateral desplegable */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #4a90e2;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding-top: 60px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebarButton {
+  padding: 15px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: left;
+}
+
+.sidebarButton:hover {
+  background-color: #357abd;
+}
+
+/* Estilos para los modales de Crear Usuario y Gestionar Usuario */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Contenedor de botones en el modal */
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+/* Botón de guardar en el modal */
+.submitButton {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #45a049;
+}
+
+/* Botón de eliminar en el modal */
+.deleteButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.deleteButton:hover {
+  background-color: #e53935;
+}
+
+/* Campo de búsqueda en el modal */
+.searchInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Botón de búsqueda en el modal */
+.searchButton {
+  padding: 10px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
 }
