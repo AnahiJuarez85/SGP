@@ -1,16 +1,16 @@
-/* src/modules/Users/Users.module.css */
-
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: #4a90e2; /* Azul suave */
-  padding: 10px 20px;
+  padding: 20px 0px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 50px; /* Barra delgada */
+  height: 20px; /* Barra delgada */
+  z-index: 1000;
 }
 
 .backButton {
@@ -26,20 +26,28 @@
   color: #d3d3d3;
 }
 
-/* Nuevo estilo para el botón del menú en el encabezado */
-.menuButton {
+.createButton {
   background: none;
   border: none;
   color: white;
   font-size: 1.5rem;
   cursor: pointer;
-  position: absolute;
-  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.createButton i {
+  font-size: 1.5rem;
+}
+
+.createButton:hover {
+  color: #d3d3d3;
 }
 
 .container {
-  padding-top: 70px; /* Espacio para el encabezado */
-  max-width: 800px;
+  padding-top: 80px; /* Espacio para el encabezado */
+  max-width: 1000px;
   margin: 0 auto;
   background-color: #f9f9f9;
   border-radius: 8px;
@@ -50,49 +58,21 @@
   text-align: center;
   font-size: 2rem;
   margin-bottom: 20px;
-}
-
-/* Estilos para el formulario en el modal */
-.form {
-  display: flex;
-  flex-direction: column; /* Coloca los elementos en columna para que estén en líneas individuales */
-  gap: 15px; /* Espaciado entre los elementos */
-  margin-bottom: 20px;
-  width: 100%;
-}
-
-.form label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  font-size: 0.9rem;
   color: #333;
+  margin-top: 20px;
 }
 
-.form input,
-.form select {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  width: 100%; /* Asegura que cada campo ocupe el ancho completo del formulario */
-  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
-}
-
-.form button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.form button:hover {
-  background-color: #45a049;
+.tableTitle {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 20px;
+  color: #4a90e2;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
 }
 
 .table th,
@@ -100,80 +80,41 @@
   padding: 10px;
   border: 1px solid #ddd;
   text-align: left;
+  font-size: 0.9rem;
 }
 
-.statusIndicator {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  display: inline-block;
+.table th {
+  background-color: #f0f0f0;
+  color: #333;
 }
 
-.available {
-  background-color: #4caf50; /* Verde para disponible */
-}
-
-.busy {
-  background-color: #f44336; /* Rojo para ocupado */
+.editButton,
+.deleteButton {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  font-size: 0.9rem;
 }
 
 .editButton {
-  background-color: #2196f3;
+  background-color: #2ed41f;
   color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-right: 5px;
 }
 
 .editButton:hover {
-  background-color: #1e88e5;
+  background-color: #1ee549;
 }
 
 .deleteButton {
   background-color: #f44336;
   color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .deleteButton:hover {
   background-color: #e53935;
 }
 
-/* Estilos para la barra lateral desplegable */
-.sidebar {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 250px;
-  height: 100%;
-  background-color: #4a90e2;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  padding-top: 60px;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.sidebarButton {
-  padding: 15px;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  text-align: left;
-}
-
-.sidebarButton:hover {
-  background-color: #357abd;
-}
-
-/* Estilos para los modales de Crear Usuario y Gestionar Usuario */
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -189,9 +130,9 @@
 
 .modalContent {
   background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
+  padding: 30px;
+  border-radius: 20px;
+  width: 100%;
   max-width: 400px;
   position: relative;
 }
@@ -206,14 +147,12 @@
   cursor: pointer;
 }
 
-/* Contenedor de botones en el modal */
 .buttonContainer {
   display: flex;
   justify-content: space-between;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
-/* Botón de guardar en el modal */
 .submitButton {
   background-color: #4caf50;
   color: white;
@@ -228,8 +167,7 @@
   background-color: #45a049;
 }
 
-/* Botón de eliminar en el modal */
-.deleteButton {
+.cancelButton {
   background-color: #f44336;
   color: white;
   border: none;
@@ -239,25 +177,75 @@
   transition: background-color 0.3s ease;
 }
 
-.deleteButton:hover {
+.cancelButton:hover {
   background-color: #e53935;
 }
 
-/* Campo de búsqueda en el modal */
-.searchInput {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 10px;
+/* Estilo para etiquetas del formulario */
+.form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #333;
 }
 
-/* Botón de búsqueda en el modal */
-.searchButton {
+.form label .required {
+  color: red;
+  margin-left: 2px;
+}
+
+.form input,
+.form select {
   padding: 10px;
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  cursor: pointer;
+  border: 1px solid #ddd;
   border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 15px
+}
+/* Título de la tabla */
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+/* Mensaje sin datos */
+.noData {
+  text-align: center;
+  color: #777;
+  font-size: 1rem;
+  padding: 20px;
+}
+
+/* Botones de acción */
+.editButton,
+.deleteButton {
+  font-size: 1rem;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.editButton {
+  background-color: #20bd1a;
+  color: white;
+}
+
+.editButton:hover {
+  background-color: #20bd1a;
+}
+
+.deleteButton {
+  background-color: #f44336;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #d32f2f;
 }

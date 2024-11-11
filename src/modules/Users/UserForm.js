@@ -22,7 +22,7 @@ const UserForm = ({ addUser, updateUser, editingUser, setEditingUser }) => {
     } else {
       addUser(formData);
     }
-    setFormData({ name: '', email: '', phone: '' });
+    setFormData({ name: '', email: '', password: '', role:'' });
   };
 
   return (
@@ -44,10 +44,18 @@ const UserForm = ({ addUser, updateUser, editingUser, setEditingUser }) => {
         required
       />
       <input
-        type="tel"
-        name="phone"
-        placeholder="Teléfono"
-        value={formData.phone}
+        type="pass"
+        name="password"
+        placeholder="password"
+        value={formData.password}
+        onChange={handleChange}
+        required
+      />
+        <input
+        type="rol"
+        name="role"
+        placeholder="role"
+        value={formData.role}
         onChange={handleChange}
         required
       />
