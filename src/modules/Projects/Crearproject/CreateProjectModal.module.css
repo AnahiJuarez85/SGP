@@ -1,0 +1,97 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Fondo transparente oscuro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegura que el modal esté en la parte superior */
+}
+
+.modalContent {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%; /* Asegura que el modal sea responsivo */
+  max-width: 500px; /* Límite máximo del ancho */
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center; /* Centra el título */
+  font-size: 1.8rem; /* Tamaño de fuente aumentado */
+}
+
+.form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  text-align: left; /* Alinea los labels a la izquierda */
+}
+
+.form input,
+.form select,
+.form textarea {
+  width: 100%; /* Asegura que los campos ocupen todo el ancho disponible */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box; /* Previene el desbordamiento */
+}
+
+textarea {
+  resize: vertical; /* Permite cambiar el tamaño vertical del textarea */
+  min-height: 80px; /* Altura mínima para campos de texto largos */
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between; /* Espacia los botones uniformemente */
+  margin-top: 20px;
+}
+
+.submitButton {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 1;
+  margin-right: 10px; /* Espaciado entre los botones */
+}
+
+.submitButton:hover {
+  background-color: #45a049;
+}
+
+.cancelButton {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.cancelButton:hover {
+  background-color: #e53935;
+}
