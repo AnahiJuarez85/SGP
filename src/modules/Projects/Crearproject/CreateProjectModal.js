@@ -14,15 +14,30 @@ const CreateProjectModal = ({ project, onClose, users }) => {
     end_date: '',
   });
 
+  const [testers, setTesters] = useState([]); // Lista de usuarios con rol de Tester
+
+  // Filtrar usuarios con rol Tester
+  useEffect(() => {
+    if (users && users.length > 0) {
+      const filteredTesters = users.filter((user) => user.role === 'tester');
+      setTesters(filteredTesters);
+    }
+  }, [users]);
+
+  // Cargar datos en caso de editar un proyecto
   useEffect(() => {
     if (project) {
       setFormData({
         name: project.name || '',
         description: project.description || '',
-        status: project.status || '', // Asegúrate de que este valor coincide exactamente
+        status: project.status || '',
         created_by: project.created_by || '',
-        start_date: project.start_date ? new Date(project.start_date).toISOString().split('T')[0] : '',
-        end_date: project.end_date ? new Date(project.end_date).toISOString().split('T')[0] : '',
+        start_date: project.start_date
+          ? new Date(project.start_date).toISOString().split('T')[0]
+          : '',
+        end_date: project.end_date
+          ? new Date(project.end_date).toISOString().split('T')[0]
+          : '',
       });
     }
   }, [project]);
@@ -36,15 +51,17 @@ const CreateProjectModal = ({ project, onClose, users }) => {
     e.preventDefault();
     try {
       if (project) {
+        // Actualizar proyecto
         await axios.put(`${API_URL}/update/${project.id}`, formData);
         alert('Proyecto actualizado exitosamente');
       } else {
+        // Crear proyecto
         await axios.post(API_URL, formData);
         alert('Proyecto creado exitosamente');
       }
-      onClose();
+      onClose(); // Cerrar modal
     } catch (error) {
-      console.error('Error al guardar el proyecto:', error);
+      console.error('Error al guardar el proyecto:', error.response?.data || error.message);
       console.log('Datos enviados:', formData);
       alert('Hubo un error al guardar el proyecto.');
     }
@@ -53,7 +70,9 @@ const CreateProjectModal = ({ project, onClose, users }) => {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <button onClick={onClose} className={styles.closeButton}>X</button>
+        <button onClick={onClose} className={styles.closeButton}>
+          X
+        </button>
         <h2>{project ? 'Editar Proyecto' : 'Crear Proyecto'}</h2>
         <form onSubmit={handleSubmit} className={styles.form}>
           <label>Nombre</label>
@@ -71,18 +90,16 @@ const CreateProjectModal = ({ project, onClose, users }) => {
             required
           />
           <label>Etapa</label>
-<select
-  name="status"
-  value={formData.status} // Asegúrate de que este valor coincide con las opciones
-  onChange={handleChange}
-  required
->
-  <option value="">Selecciona una etapa</option>
-  <option value="Activo">Activo</option>
-  <option value="En_progreso">En Progreso</option>
-  <option value="Finalizado">Finalizado</option>
-
-
+          <select
+            name="status"
+            value={formData.status}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Selecciona una etapa</option>
+            <option value="Activo">Activo</option>
+            <option value="En_progreso">En Progreso</option>
+            <option value="Finalizado">Finalizado</option>
           </select>
           <label>Responsable</label>
           <select
@@ -92,9 +109,9 @@ const CreateProjectModal = ({ project, onClose, users }) => {
             required
           >
             <option value="">Selecciona un responsable</option>
-            {users.map((user) => (
-              <option key={user.name} value={user.name}>
-                {user.username}
+            {testers.map((tester) => (
+              <option key={tester.name} value={tester.name}>
+                {tester.username}
               </option>
             ))}
           </select>
@@ -115,8 +132,16 @@ const CreateProjectModal = ({ project, onClose, users }) => {
             required
           />
           <div className={styles.buttonContainer}>
-            <button type="submit" className={styles.submitButton}>Guardar</button>
-            <button type="button" onClick={onClose} className={styles.cancelButton}>Cancelar</button>
+            <button type="submit" className={styles.submitButton}>
+              Guardar
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className={styles.cancelButton}
+            >
+              Cancelar
+            </button>
           </div>
         </form>
       </div>

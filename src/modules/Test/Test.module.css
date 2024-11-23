@@ -148,3 +148,8 @@
 .deleteButton:hover {
     color: #d32f2f;
 }
+.planName {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }

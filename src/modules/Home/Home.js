@@ -1,17 +1,21 @@
-// src/modules/Home/Home.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import OptionCard from './OptionCard';
 import styles from './Home.module.css';
 
-const Home = () => {
+const Home = ({ onLogout }) => {
   const navigate = useNavigate();
 
-  
+  // Función para manejar el cierre de sesión
+  const handleLogout = () => {
+    onLogout(); // Llama a la función de logout pasada desde el componente App
+    navigate('/Login'); // Redirige al usuario al login
+  };
+
+  // Navegación entre diferentes rutas
   const handleProjectNavigation = () => navigate('/projects');
   const handleUserNavigation = () => navigate('/users');
-  const handleTestNavigate = () => navigate('/Test');
-  const handleLogout = () => alert('Cerrando sesión...');
+  const handleTestNavigate = () => navigate('/test');
 
   return (
     <>
@@ -24,11 +28,10 @@ const Home = () => {
       <div className={styles.container}>
         <div className={styles.grid}>
           <OptionCard 
-            
             title="Gestión de Proyectos" 
             icon="FaFolderPlus" 
             colorClass="cardGreen" 
-            onClick={handleProjectNavigation} // Llama a la función para ir a proyectos
+            onClick={handleProjectNavigation}
           />
           <OptionCard 
             title="Usuario" 
