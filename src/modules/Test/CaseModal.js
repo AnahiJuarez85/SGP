@@ -20,7 +20,8 @@ const CaseModal = ({ onSave, onCancel, planId }) => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3001/api/test-cases', payload);
+      const URL = process.env.REACT_APP_API_URL;   
+      const response = await axios.post(`${URL}api/test-cases`, payload);
 
       if (response.status === 200) {
         alert('Caso guardado exitosamente');

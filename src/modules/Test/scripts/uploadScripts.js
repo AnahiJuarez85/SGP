@@ -27,7 +27,9 @@ const handleUpload = async () => {
     formData.append('uploadedBy', uploadedBy); // Se pasa el ID del usuario que sube el archivo
 
     try {
-    const response = await axios.post('http://localhost:3001/api/automated/scripts', formData, {
+    
+    const URL = process.env.REACT_APP_API_URL;   
+    const response = await axios.post(`${URL}api/automated/scripts`, formData, {
         headers: {
         'Content-Type': 'multipart/form-data',
         },

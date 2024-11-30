@@ -4,8 +4,11 @@ import { FaArrowLeft, FaEdit, FaTrashAlt, FaPlus, FaSearch, FaFilter } from 'rea
 import styles from './Projects.module.css';
 import CreateProjectModal from './Crearproject/CreateProjectModal';
 
-const API_URL = 'http://localhost:3001/api/proyectos';
-const USERS_API_URL = 'http://localhost:3001/api/usuarios';
+const URL = process.env.REACT_APP_API_URL;
+ 
+
+const API_URL = `${URL}api/proyectos`;
+const USERS_API_URL = `${URL}api/usuarios`;
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);

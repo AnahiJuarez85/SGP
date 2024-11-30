@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './Users.module.css';
 
-const API_URL = 'http://localhost:3001/api/usuarios';
+const URL = process.env.REACT_APP_API_URL; 
+
+const API_URL = `${URL}api/usuarios`;
+
 
 const UserModal = ({
   closeModal,

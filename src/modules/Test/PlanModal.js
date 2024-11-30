@@ -12,7 +12,8 @@ const PlanModal = ({ projectId, onSave, onCancel, editingPlan }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/usuarios');
+        const URL = process.env.REACT_APP_API_URL; 
+        const response = await fetch(`${URL}api/usuarios`);
         if (!response.ok) {
           throw new Error('Error al cargar usuarios');
         }

@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './Users.module.css';
+const URL = process.env.REACT_APP_API_URL; 
 
-const API_URL = 'http://localhost:3001/api/usuarios/update';
+const API_URL = `${URL}api/usuarios/update`;
 
 const ManageUserModal = ({ user, closeModal, onUserUpdated }) => {
   // Estado inicial basado en los datos del usuario o valores predeterminados

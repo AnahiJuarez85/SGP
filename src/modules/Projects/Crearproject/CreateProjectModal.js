@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './CreateProjectModal.module.css';
 
-const API_URL = 'http://localhost:3001/api/proyectos';
+const URL = process.env.REACT_APP_API_URL;
+ 
+const API_URL = `${URL}api/proyectos`;
 
 const CreateProjectModal = ({ project, onClose, users }) => {
   const [formData, setFormData] = useState({

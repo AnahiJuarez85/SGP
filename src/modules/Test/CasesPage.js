@@ -17,8 +17,9 @@ const CasesPage = () => {
   useEffect(() => {
     const fetchCases = async () => {
       try {
+        const URL = process.env.REACT_APP_API_URL; 
         const response = await axios.get(
-          `http://localhost:3001/api/test-cases/testplan/${planId}`
+          `${URL}api/test-cases/testplan/${planId}`
         );
         setCases(response.data);
         setFilteredCases(response.data);
@@ -63,8 +64,9 @@ const CasesPage = () => {
     formData.append("uploadedBy", user.id); // ID de usuario fijo por ahora
 
     try {
+      const URL = process.env.REACT_APP_API_URL;  
       const response = await axios.post(
-        "http://localhost:3001/api/automated/scripts",
+        `${URL}api/automated/scripts`,
         formData,
         {
           headers: {
@@ -91,8 +93,9 @@ const CasesPage = () => {
 
   const handleExecuteScript = async (testCaseId) => {
     try {
+      const URL = process.env.REACT_APP_API_URL;   
       const response = await axios.post(
-        "http://localhost:3001/api/automated/execute",
+        `${URL}api/automated/execute`,
         {
           testCaseId: testCaseId,
           executedBy: user.id,
@@ -193,14 +196,7 @@ const CasesPage = () => {
                     handleUploadScript(e.target.files[0], testCase.id)
                   }
                 />
-                <button
-                  onClick={() =>
-                    handleUploadScript(uploadedFiles[testCase.id], testCase.id)
-                  }
-                  className={styles.uploadButton}
-                >
-                  Subir Script
-                </button>
+                
               </div>
             </div>
           ))

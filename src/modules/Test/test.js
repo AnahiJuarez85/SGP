@@ -12,11 +12,12 @@ const Tests = () => {
   const [projectExists, setProjectExists] = useState(false);
   const [showPlanModal, setShowPlanModal] = useState(false);
   const [editingPlan, setEditingPlan] = useState(null);
+  const URL = process.env.REACT_APP_API_URL; 
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/usuarios');
+        const response = await fetch(`${URL}api/usuarios`);
         if (!response.ok) {
           throw new Error('Error al cargar usuarios');
         }
@@ -31,7 +32,7 @@ const Tests = () => {
 
   const handleSearch = async () => {
     try {
-      const projectResponse = await fetch(`http://localhost:3001/api/proyectos/${projectCode}`);
+      const projectResponse = await fetch(`${URL}api/proyectos/${projectCode}`);
       if (!projectResponse.ok) {
         setProjectExists(false);
         return;
@@ -39,7 +40,7 @@ const Tests = () => {
 
       setProjectExists(true);
 
-      const plansResponse = await fetch(`http://localhost:3001/api/test-plans/project/${projectCode}`);
+      const plansResponse = await fetch(`${URL}api/test-plans/project/${projectCode}`);
       if (!plansResponse.ok) {
         setPlans([]);
         return;
@@ -64,7 +65,7 @@ const Tests = () => {
   const handleSavePlan = async (newPlan) => {
     try {
       if (editingPlan) {
-        const response = await fetch(`http://localhost:3001/api/test-plans/${editingPlan.id}`, {
+        const response = await fetch(`${URL}api/test-plans/${editingPlan.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -94,7 +95,7 @@ const Tests = () => {
 
         alert('Plan actualizado exitosamente');
       } else {
-        const response = await fetch('http://localhost:3001/api/test-plans', {
+        const response = await fetch(`${URL}api/test-plans`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

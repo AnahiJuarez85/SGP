@@ -8,9 +8,11 @@ const Login = ({ onLoginSuccess }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    const API_URL = process.env.REACT_APP_API_URL;
+ 
 
     try {
-      const response = await fetch("http://localhost:3001/api/usuarios/login", { // Ruta ajustada para la API de login
+      const response = await fetch(`${API_URL}api/usuarios/login`, { // Ruta ajustada para la API de login
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }), // Datos enviados al servidor
@@ -62,15 +64,7 @@ const Login = ({ onLoginSuccess }) => {
               required
             />
           </div>
-          <div className={styles.actions}>
-            <label className={styles.rememberMe}>
-              <input type="checkbox" />
-              Recordarme
-            </label>
-            <a href="#" className={styles.forgotPassword}>
-              ¿Olvidaste tu contraseña?
-            </a>
-          </div>
+          
           <button type="submit" className={styles.button}>
             Ingresar
           </button>

@@ -5,8 +5,9 @@ import { FaUserPlus, FaArrowLeft } from 'react-icons/fa';
 import UserTable from './UserTable';
 import UserModal from './UserModal';
 import styles from './Users.module.css';
+const URL = process.env.REACT_APP_API_URL; 
 
-const API_URL = 'http://localhost:3001/api/usuarios';
+const API_URL = `${URL}api/usuarios`;
 
 const Users = () => {
   const navigate = useNavigate(); // Instancia del hook useNavigate

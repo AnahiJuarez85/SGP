@@ -21,8 +21,10 @@ const ResultsPage = () => {
 
         console.log("Llamando al backend con caseId:", caseId);
 
+        const URL = process.env.REACT_APP_API_URL;
+
         const response = await axios.get(
-          `http://localhost:3001/api/test-result/results/testcase/${caseId}`
+          `${URL}api/test-result/results/testcase/${caseId}`
         );
 
 
