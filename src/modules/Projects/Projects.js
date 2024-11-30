@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaArrowLeft, FaEdit, FaTrashAlt, FaPlus, FaSearch, FaFilter } from 'react-icons/fa';
+import { FaArrowLeft, FaEdit, FaPlus, FaSearch, FaFilter } from 'react-icons/fa';
 import styles from './Projects.module.css';
 import CreateProjectModal from './Crearproject/CreateProjectModal';
 
@@ -59,21 +59,6 @@ const Projects = () => {
     setShowModal(true);
   };
 
-  // Delete a project
-  const handleDeleteProject = async (projectId) => {
-    if (window.confirm('¿Estás seguro de que deseas eliminar este proyecto?')) {
-      try {
-        await axios.delete(`${API_URL}/delete/${projectId}`);
-        const updatedProjects = projects.filter((project) => project.id !== projectId);
-        setProjects(updatedProjects);
-        setFilteredProjects(updatedProjects);
-        alert('Proyecto eliminado con éxito.');
-      } catch (error) {
-        console.error('Error al eliminar proyecto:', error);
-        alert('Hubo un error al eliminar el proyecto.');
-      }
-    }
-  };
 
   // Filter projects by status
   const handleFilterByStatus = (status) => {

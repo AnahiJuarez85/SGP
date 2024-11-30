@@ -12,11 +12,11 @@ const Tests = () => {
   const [projectExists, setProjectExists] = useState(false);
   const [showPlanModal, setShowPlanModal] = useState(false);
   const [editingPlan, setEditingPlan] = useState(null);
-  const URL = process.env.REACT_APP_API_URL; 
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        const URL = process.env.REACT_APP_API_URL; 
         const response = await fetch(`${URL}api/usuarios`);
         if (!response.ok) {
           throw new Error('Error al cargar usuarios');
