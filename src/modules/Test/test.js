@@ -32,6 +32,7 @@ const Tests = () => {
 
   const handleSearch = async () => {
     try {
+      const URL = process.env.REACT_APP_API_URL; 
       const projectResponse = await fetch(`${URL}api/proyectos/${projectCode}`);
       if (!projectResponse.ok) {
         setProjectExists(false);
@@ -65,6 +66,7 @@ const Tests = () => {
   const handleSavePlan = async (newPlan) => {
     try {
       if (editingPlan) {
+        const URL = process.env.REACT_APP_API_URL; 
         const response = await fetch(`${URL}api/test-plans/${editingPlan.id}`, {
           method: 'PUT',
           headers: {
