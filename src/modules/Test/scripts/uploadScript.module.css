@@ -1,0 +1,30 @@
+.uploadContainer {
+    margin: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.uploadContainer h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.fileInput {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.uploadButton {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.uploadButton:hover {
+    background-color: #45a049;
+}

@@ -31,7 +31,7 @@ const PlanModal = ({ projectId, onSave, onCancel, editingPlan }) => {
       setFormData({
         name: editingPlan.name || '',
         description: editingPlan.description || '',
-        responsible: editingPlan.createdBy || '',
+        responsible: editingPlan.created_by || '',
       });
     }
   }, [editingPlan]);

@@ -172,6 +172,19 @@
   background-color: #218838;
 }
 
+.resultsButton {
+  background-color: #5666de;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.resultsButton:hover {
+  background-color: #5666de;
+}
+
 .noCasesMessage {
   text-align: center;
   font-size: 1rem;

@@ -1,36 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import CaseModal from './CaseModal'; // Formulario de creación de casos
-import styles from './CasesPage.module.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import CaseModal from "./CaseModal";
+import styles from "./CasesPage.module.css";
+import axios from "axios";
+
 
 const CasesPage = () => {
   const { planId } = useParams();
   const navigate = useNavigate();
   const [cases, setCases] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [filteredCases, setFilteredCases] = useState([]);
-  const [showModal, setShowModal] = useState(false); // Controla la visibilidad del formulario
+  const [showModal, setShowModal] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState({}); // Estado para los archivos subidos
 
-  // Cargar casos de prueba desde el backend
   useEffect(() => {
     const fetchCases = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/api/test-cases/testplan/${planId}`);
-        if (!response.ok) {
-          throw new Error('Error al cargar casos de prueba');
-        }
-        const casesData = await response.json();
-        setCases(casesData);
-        setFilteredCases(casesData); // Inicializa los casos filtrados
+        const response = await axios.get(
+          `http://localhost:3001/api/test-cases/testplan/${planId}`
+        );
+        setCases(response.data);
+        setFilteredCases(response.data);
       } catch (error) {
-        console.error('Error al cargar casos:', error);
+        console.error("Error al cargar casos de prueba:", error);
       }
     };
 
     fetchCases();
   }, [planId]);
 
-  // Filtrar los casos según el término de búsqueda
   useEffect(() => {
     if (!searchTerm) {
       setFilteredCases(cases);
@@ -42,18 +41,86 @@ const CasesPage = () => {
     }
   }, [searchTerm, cases]);
 
-  // Función para guardar un nuevo caso creado en CaseModal
+  const [user, setUser] = useState(null); // Estado para verificar si el usuario está autenticado
+
+  // Verificar si hay un usuario guardado en localStorage al cargar la app
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+  
+  const handleUploadScript = async (file, testCaseId) => {
+    if (!file) {
+      alert("Por favor, selecciona un archivo antes de subir.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("script", file);
+    formData.append("testCaseId", testCaseId);
+    formData.append("uploadedBy", user.id); // ID de usuario fijo por ahora
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/api/automated/scripts",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        alert("Script subido exitosamente.");
+        // Actualiza el estado con el nombre del archivo subido
+        setUploadedFiles((prev) => ({
+          ...prev,
+          [testCaseId]: file.name,
+        }));
+      } else {
+        alert("Error al subir el script.");
+      }
+    } catch (error) {
+      console.error("Error al subir el script:", error);
+      alert("Error al subir el script.");
+    }
+  };
+
+  const handleExecuteScript = async (testCaseId) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/api/automated/execute",
+        {
+          testCaseId: testCaseId,
+          executedBy: user.id,
+        }
+      );
+
+      if (response.status === 200) {
+        alert("Script ejecutado exitosamente.");
+      } else {
+        alert("Error al ejecutar el script.");
+      }
+    } catch (error) {
+      console.error("Error al ejecutar el script:", error);
+      alert("Error al ejecutar el script.");
+    }
+  };
+
   const handleCreateCase = (newCase) => {
-    setCases((prevCases) => [...prevCases, newCase]); // Agrega el caso a la lista
-    setFilteredCases((prevCases) => [...prevCases, newCase]); // Actualiza los casos filtrados
-    setShowModal(false); // Cierra el modal
+    setCases((prevCases) => [...prevCases, newCase]);
+    setFilteredCases((prevCases) => [...prevCases, newCase]);
+    setShowModal(false);
   };
 
   return (
     <div className={styles.casesPageContainer}>
       <header className={styles.casesPageHeader}>
         <button
-          onClick={() => navigate('/test')}
+          onClick={() => navigate("/test")}
           className={styles.casesPageBackButton}
         >
           Regresar
@@ -73,10 +140,9 @@ const CasesPage = () => {
         <button className={styles.casesPageSearchButton}>Buscar</button>
       </div>
 
-      {/* Botón para abrir el formulario */}
       <button
         className={styles.casesPageCreateButton}
-        onClick={() => setShowModal(true)} // Muestra el modal
+        onClick={() => setShowModal(true)}
       >
         Crear Caso
       </button>
@@ -99,13 +165,43 @@ const CasesPage = () => {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>archivo.txt</td>
                     <td>
-                      <button className={styles.executeButton}>Ejecutar</button>
+                      {uploadedFiles[testCase.id] || "No se ha subido archivo"}
+                    </td>
+                    <td>
+                      <button
+                        className={styles.executeButton}
+                        onClick={() => handleExecuteScript(testCase.id)}
+                      >
+                        Ejecutar
+                      </button>
+                      <button
+                        className={styles.resultsButton}
+                        onClick={() => navigate(`/results/${testCase.id}`)}
+                      >
+                        Ver Resultados
+                      </button>
                     </td>
                   </tr>
                 </tbody>
               </table>
+              <div className={styles.uploadScript}>
+                <input
+                  type="file"
+                  accept=".js"
+                  onChange={(e) =>
+                    handleUploadScript(e.target.files[0], testCase.id)
+                  }
+                />
+                <button
+                  onClick={() =>
+                    handleUploadScript(uploadedFiles[testCase.id], testCase.id)
+                  }
+                  className={styles.uploadButton}
+                >
+                  Subir Script
+                </button>
+              </div>
             </div>
           ))
         ) : (
@@ -117,15 +213,15 @@ const CasesPage = () => {
         <div className={styles.casesPageModal}>
           <div className={styles.casesPageModalContent}>
             <button
-              onClick={() => setShowModal(false)} // Cierra el modal
+              onClick={() => setShowModal(false)}
               className={styles.casesPageModalCloseButton}
             >
               &times;
             </button>
             <CaseModal
-              planId={planId} // Asocia el caso al plan actual
-              onSave={handleCreateCase} // Llama a la función para agregar el nuevo caso
-              onCancel={() => setShowModal(false)} // Cierra el modal al cancelar
+              planId={planId}
+              onSave={handleCreateCase}
+              onCancel={() => setShowModal(false)}
             />
           </div>
         </div>

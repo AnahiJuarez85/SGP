@@ -97,9 +97,10 @@ const CreateProjectModal = ({ project, onClose, users }) => {
             required
           >
             <option value="">Selecciona una etapa</option>
-            <option value="Activo">Activo</option>
-            <option value="En_progreso">En Progreso</option>
-            <option value="Finalizado">Finalizado</option>
+            <option value="activo">Activo</option>
+            <option value="en_progreso">En Progreso</option>
+            <option value="finalizado">Finalizado</option>
+            <option value="cancelado">Cancelado</option>
           </select>
           <label>Responsable</label>
           <select
@@ -110,7 +111,7 @@ const CreateProjectModal = ({ project, onClose, users }) => {
           >
             <option value="">Selecciona un responsable</option>
             {testers.map((tester) => (
-              <option key={tester.name} value={tester.name}>
+              <option key={tester.id} value={tester.id}>
                 {tester.username}
               </option>
             ))}

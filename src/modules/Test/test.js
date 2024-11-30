@@ -48,7 +48,7 @@ const Tests = () => {
       const plansData = await plansResponse.json();
 
       const updatedPlans = plansData.map((plan) => {
-        const responsibleUser = testers.find((tester) => tester.id === plan.createdBy);
+        const responsibleUser = testers.find((tester) => tester.id === plan.created_by);
         return {
           ...plan,
           responsibleName: responsibleUser ? responsibleUser.username : 'Desconocido',

@@ -141,6 +141,7 @@ const Projects = () => {
           <button onClick={() => handleFilterByStatus('Activo')}>Activo</button>
           <button onClick={() => handleFilterByStatus('En_progreso')}>En Progreso</button>
           <button onClick={() => handleFilterByStatus('Finalizado')}>Finalizado</button>
+          <button onClick={() => handleFilterByStatus('Cancelado')}>Cancelado</button>
           <button onClick={() => handleFilterByStatus('')}>Todos</button>
         </div>
       )}
@@ -179,13 +180,7 @@ const Projects = () => {
                   >
                     <FaEdit />
                   </button>
-                  <button
-                    onClick={() => handleDeleteProject(project.id)}
-                    className={styles.deleteButton}
-                    aria-label="Eliminar proyecto"
-                  >
-                    <FaTrashAlt />
-                  </button>
+                  
                 </td>
               </tr>
             ))

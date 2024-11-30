@@ -2,29 +2,25 @@ import React, { useState } from 'react';
 import styles from './CaseModal.module.css';
 import axios from 'axios';
 
-
 const CaseModal = ({ onSave, onCancel, planId }) => {
   const [description, setDescription] = useState('');
-  const [status, setStatus] = useState('');
-  const [file, setFile] = useState(null);
+  const [expectedResult, setExpectedResult] = useState('');
 
   const handleSave = async () => {
-    if (!description || !status || !file) {
+    if (!description || !expectedResult) {
       alert('Por favor, completa todos los campos.');
       return;
     }
 
-    const formData = new FormData();
-    formData.append('testPlanId', planId);
-    formData.append('description', description);
-    formData.append('expectedResult', file); // Adjuntar archivo al payload
+    // Crear el payload con la estructura necesaria
+    const payload = {
+      testPlanId: planId,
+      description,
+      expectedResult,
+    };
 
     try {
-      const response = await axios.post('http://localhost:3001/api/test-cases', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.post('http://localhost:3001/api/test-cases', payload);
 
       if (response.status === 200) {
         alert('Caso guardado exitosamente');
@@ -35,15 +31,6 @@ const CaseModal = ({ onSave, onCancel, planId }) => {
     } catch (error) {
       console.error('Error al guardar el caso de prueba:', error.response?.data || error.message);
       alert(error.response?.data?.error || 'Error al guardar el caso.');
-    }
-  };
-
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile && selectedFile.name.endsWith('.js')) {
-      setFile(selectedFile);
-    } else {
-      alert('Por favor, selecciona un archivo con extensión .js.');
     }
   };
 
@@ -59,24 +46,11 @@ const CaseModal = ({ onSave, onCancel, planId }) => {
           className={styles.textarea}
         />
 
-        <label>Estado</label>
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          className={styles.select}
-        >
-          <option value="">Selecciona un estado</option>
-          <option value="Exitoso">Exitoso</option>
-          <option value="Fallo">Fallo</option>
-          <option value="En progreso">En progreso</option>
-        </select>
-
-        <label>Subir Archivo .js</label>
-        <input
-          type="file"
-          accept=".js"
-          onChange={handleFileChange}
-          className={styles.fileInput}
+        <label>Resultado Esperado</label>
+        <textarea
+          value={expectedResult}
+          onChange={(e) => setExpectedResult(e.target.value)}
+          className={styles.textarea}
         />
 
         <div className={styles.buttons}>

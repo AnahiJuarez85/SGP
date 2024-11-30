@@ -75,13 +75,6 @@
   background-color: #1e88e5;
 }
 
-.deleteButton {
-  background-color: #f44336;
-}
-
-.deleteButton:hover {
-  background-color: #e53935;
-}
 
 .searchBar {
   display: flex;
